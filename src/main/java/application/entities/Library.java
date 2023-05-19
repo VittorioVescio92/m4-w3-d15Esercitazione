@@ -1,50 +1,43 @@
 package application.entities;
 
+import java.util.Set;
 import java.util.UUID;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Entity
+@Table(name = "Library")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@Getter
+@Setter
+@NoArgsConstructor
+@NamedQuery(name = "findByYear", query = "SELECT l FROM Library l WHERE l.pubblicationYear = :year")
+@NamedQuery(name = "findByTitleOrString", query = "SELECT l FROM Library l WHERE l.title LIKE '%string%'")
 public abstract class Library {
-	private UUID ISBN = UUID.randomUUID();
+	@Id
+	@GeneratedValue
+	private UUID ISBN;
 	private String title;
 	private int pubblicationYear;
 	private int pagesNumber;
+	@OneToMany(mappedBy = "borrowedItem")
+	private Set<Loan> loans;
 
 	public Library(String title, int pubblicationYear, int pagesNumber) {
-		setISBN(ISBN);
 		setTitle(title);
 		setPubblicationYear(pubblicationYear);
 		setPagesNumber(pagesNumber);
-	}
-
-	public UUID getISBN() {
-		return ISBN;
-	}
-
-	public void setISBN(UUID ISBN) {
-		this.ISBN = ISBN;
-	}
-
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-	public int getPubblicationYear() {
-		return pubblicationYear;
-	}
-
-	public void setPubblicationYear(int pubblicationYear2) {
-		this.pubblicationYear = pubblicationYear2;
-	}
-
-	public int getPagesNumber() {
-		return pagesNumber;
-	}
-
-	public void setPagesNumber(int pagesNumber) {
-		this.pagesNumber = pagesNumber;
 	}
 
 	@Override

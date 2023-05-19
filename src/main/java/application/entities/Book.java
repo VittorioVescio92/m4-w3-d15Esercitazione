@@ -1,5 +1,17 @@
 package application.entities;
 
+import javax.persistence.Entity;
+import javax.persistence.NamedQuery;
+
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@NamedQuery(name = "findByAuthor", query = "SELECT b FROM Book b WHERE b.author = :author")
 public class Book extends Library {
 	private String author;
 	private String genre;
@@ -8,23 +20,6 @@ public class Book extends Library {
 		super(title, pubblicationYear, pagesNumber);
 		setAuthor(author);
 		setGenre(genre);
-
-	}
-
-	public String getAuthor() {
-		return author;
-	}
-
-	public void setAuthor(String author) {
-		this.author = author;
-	}
-
-	public String getGenre() {
-		return genre;
-	}
-
-	public void setGenre(String genre) {
-		this.genre = genre;
 	}
 
 	@Override
