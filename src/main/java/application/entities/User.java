@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.Set;
 import java.util.UUID;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -19,15 +20,14 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-//@NamedQuery(name = "findInPrestito", query = "SELECT l FROM Loan l WHERE l.user.cardNumber = :cardNumber AND l.returnDate IS NULL")
 public class User {
 	@Id
 	@GeneratedValue
-	private UUID numeroTessera;
+	private UUID cardNumber;
 	private String name;
 	private String lastname;
 	private LocalDate birthDate;
-	@OneToMany(mappedBy = "user")
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
 	private Set<Loan> loans;
 
 	public User(String name, String lastname, LocalDate birthDate) {
@@ -38,7 +38,7 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "User [numeroTessera=" + numeroTessera + ", name=" + name + ", lastname=" + lastname + ", birthDate="
+		return "User [numeroTessera=" + cardNumber + ", name=" + name + ", lastname=" + lastname + ", birthDate="
 				+ birthDate + "]";
 	}
 

@@ -1,9 +1,12 @@
 package application.dao;
 
+import java.time.LocalDate;
+import java.util.List;
 import java.util.UUID;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.persistence.TypedQuery;
 
 import application.entities.Loan;
 import lombok.extern.slf4j.Slf4j;
@@ -39,4 +42,17 @@ public class LoanDAO {
 			log.info("Loan " + id + " deleted!");
 		}
 	}
+
+	public List<Loan> getLoansByCardNumber(UUID id) {
+		TypedQuery<Loan> getAllQuery = em.createNamedQuery("findByCardNumber", Loan.class);
+		getAllQuery.setParameter("cardNumber", id);
+		return getAllQuery.getResultList();
+	}
+
+	public List<Loan> getLoansExpiredAndNotReturned(LocalDate date) {
+		TypedQuery<Loan> getAllQuery = em.createNamedQuery("findExpiredLoans", Loan.class);
+		getAllQuery.setParameter("currentDate", date);
+		return getAllQuery.getResultList();
+	}
+
 }

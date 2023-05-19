@@ -44,19 +44,19 @@ public class LibraryDAO {
 	}
 
 	public List<Library> getByYear(int year) {
-		TypedQuery<Library> getAllQuery = em.createQuery("findByYear", Library.class);
+		TypedQuery<Library> getAllQuery = em.createNamedQuery("findByYear", Library.class);
 		getAllQuery.setParameter("year", year);
 		return getAllQuery.getResultList();
 	}
 
 	public List<Book> getByAuthor(String author) {
-		TypedQuery<Book> getAllQuery = em.createQuery("findByAuthor", Book.class);
+		TypedQuery<Book> getAllQuery = em.createNamedQuery("findByAuthor", Book.class);
 		getAllQuery.setParameter("author", author);
 		return getAllQuery.getResultList();
 	}
 
-	public List<Library> getByTitleOrAuthor(String title) {
-		TypedQuery<Library> getAllQuery = em.createQuery("findByTitleOrString", Library.class);
+	public List<Library> getByTitleOrPartial(String title) {
+		TypedQuery<Library> getAllQuery = em.createNamedQuery("findByTitleOrString", Library.class);
 		getAllQuery.setParameter("title", title);
 		return getAllQuery.getResultList();
 	}

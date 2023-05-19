@@ -24,11 +24,6 @@ public class UserDAO {
 		log.info("User saved");
 	}
 
-	public User getByCardNumber(UUID id) {
-		User found = em.find(User.class, id);
-		return found;
-	}
-
 	public void delete(UUID id) {
 		User found = em.find(User.class, id);
 		if (found != null) {
