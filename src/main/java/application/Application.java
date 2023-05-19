@@ -59,7 +59,9 @@ public class Application {
 //		ld2.save(loan3);
 //		ld2.save(loan4);
 
-//		ld.delete(UUID.fromString("c3765d0f-babe-4161-8327-3bb0ab1bc39c"));
+		ld.delete(UUID.fromString("c3765d0f-babe-4161-8327-3bb0ab1bc39c"));
+
+		log.info("************************************************");
 
 		Library found = ld.getByISBN(UUID.fromString("50d91aec-e66c-428e-baad-e4ff70a0ed36"));
 		if (found != null) {

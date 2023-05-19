@@ -40,6 +40,8 @@ public class LibraryDAO {
 			em.remove(found);
 			transaction.commit();
 			log.info("Library Item with id " + id + " deleted!");
+		} else {
+			log.info("Elemento per cui è stata richiesta la cancellazione non presente in archivio");
 		}
 	}
 
